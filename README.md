@@ -24,7 +24,7 @@ vi /etc/shadowsocks/shadowsocks.json
 }
 ```
 
-### 配置开机自启动
+### 配置开机自启动,注意要使用whereis找到sslocal这个命令是在/usr/local/bin/sslocal还是在/usr/bin/sslocal要注意.
 
 ```javascript
 vi /etc/systemd/system/shadowsocks.service
