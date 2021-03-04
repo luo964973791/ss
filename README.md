@@ -1,48 +1,7 @@
-### 安装shadowsocks客户端
+### docker启动shadowsocks客户端
 
 ```javascript
-yum install -y epel-release
-yum install -y python-pip libsodium
-pip install https://github.com/shadowsocks/shadowsocks/archive/master.zip -U
-```
-
-### 配置shadowsocks客户端
-
-```javascript
-mkdir /etc/shadowsocks
-vi /etc/shadowsocks/shadowsocks.json
-{
-    "server":"221.228.99.199",
-    "server_port":584,
-    "local_address": "127.0.0.1",
-    "local_port":1080,
-    "password":"cc.ax",
-    "timeout":300,
-    "method":"chacha20-ietf",
-    "fast_open": false,
-    "workers": 1
-}
-```
-
-### 配置开机自启动,注意要使用whereis找到sslocal这个命令是在/usr/local/bin/sslocal还是在/usr/bin/sslocal要注意.
-
-```javascript
-vi /etc/systemd/system/shadowsocks.service
-[Unit]
-Description=Shadowsocks
-
-[Service]
-TimeoutStartSec=0
-ExecStart=/usr/local/bin/sslocal -c /etc/shadowsocks/shadowsocks.json
-
-[Install]
-WantedBy=multi-user.target
-
-
-#设置开机自启动
-systemctl enable shadowsocks.service
-systemctl start shadowsocks.service
-systemctl status shadowsocks.service
+docker run -it -d -p 1080:1080 --restart=always --name ss -e SERVER='530835.s-hk-2.baidu.com' -e PORT=38843 -e LISTEN=1080 -e METHOD='aes-256-cfb' -e PASSWD='mtUNEyoBMB' 964973791/ss:1.0.0
 ```
 
 ### 验证shadowsocks代理是否正常.
@@ -54,18 +13,10 @@ curl --socks5 127.0.0.1:1080 http://httpbin.org/ip
 }
 ```
 
-### 安装Privoxy,注意下面两行没有被注释掉.
+### 安装Privoxy
 
 ```javascript
-yum -y install privoxy
-vi /etc/privoxy/config
-listen-address 127.0.0.1:8118 # 8118 是默认端口，不用改  
-forward-socks5t / 127.0.0.1:1080 . #转发到本地端口，注意别忘了最后的.
-
-
-systemctl enable privoxy
-systemctl start privoxy
-systemctl status privoxy
+docker run -d --name=privoxy --restart=always --net=host -p 8118:8118 964973791/privoxy:1.0.0
 ```
 
 ### 配置全局代理
