@@ -24,7 +24,7 @@ docker run -d --name=privoxy --restart=always --net=host -p 8118:8118 964973791/
 ```javascript
 vi ~/.bashrc
 export http_proxy=http://127.0.0.1:8118
-export https_proxy=http://127.0.0.1:8118
+export https_proxy=https://127.0.0.1:8118
 ```
 
 ### 验证
