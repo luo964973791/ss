@@ -1,22 +1,11 @@
 ### docker启动shadowsocks客户端
 
 ```javascript
-docker run -it -d -p 1080:1080 --restart=always --name ss -e SERVER='530835.s-hk-2.baidu.com' -e PORT=38843 -e LISTEN=1080 -e METHOD='aes-256-cfb' -e PASSWD='mtUNEyoBMB' 964973791/ss:1.0.0
-```
-
-### 验证shadowsocks代理是否正常.
-
-```javascript
-curl --socks5 127.0.0.1:1080 http://httpbin.org/ip
-{
-"origin": "x.x.x.x" #你的Shadowsock服务器IP
-}
-```
-
-### 安装Privoxy
-
-```javascript
-docker run -d --name=privoxy --restart=always --net=host -p 8118:8118 964973791/privoxy:1.0.0
+docker run -it --restart=always --name ss -d -p 8118:8118 \
+    -p 1080:1080 -e SS_SERVER="530835.s-hk-2.baacloud1.com" \
+    -e SS_SERVER_PORT=38843 -e SS_SERVER_PASSWD='mtUNEyoBMB' \
+    -e ENCRYPT_METHOD='aes-256-cfb' -e SS_LOCAL_PORT=1080 \
+    964973791/ss:1.0.0
 ```
 
 ### 配置全局代理
