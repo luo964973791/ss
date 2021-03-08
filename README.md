@@ -2,7 +2,7 @@
 
 ```javascript
 docker run -it --restart=always --name ss -d -p 8118:8118 \
-    -p 1080:1080 -e SS_SERVER="530835.s-hk-2.baacloud1.com" \
+    -p 1080:1080 -e SS_SERVER="x.x.x.x.com" \
     -e SS_SERVER_PORT=38843 -e SS_SERVER_PASSWD='mtUNEyoBMB' \
     -e ENCRYPT_METHOD='aes-256-cfb' -e SS_LOCAL_PORT=1080 \
     964973791/ss:1.0.0
