@@ -1,6 +1,7 @@
 ### docker启动shadowsocks客户端
 
 ```javascript
+echo "1" > /proc/sys/net/ipv4/ip_forward #开启路由转发
 docker run -it --restart=always --name ss -d -p 8118:8118 \
     -p 1080:1080 -e SS_SERVER="x.x.x.x.com" \
     -e SS_SERVER_PORT=38843 -e SS_SERVER_PASSWD='mtUNEyoBMB' \
